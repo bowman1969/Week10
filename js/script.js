@@ -1,20 +1,39 @@
 console.log("script.js loaded");
 
-async function getDogFact() {
-  const response = await fetch("https://api.giphy.com/v1/gifs/search?api_key=&q=dogs&limit=25&offset=0&rating=g&lang=en&bundle=messaging_non_clips");
+// Store the container and button
+const gifContainer = document.querySelector("#gif-container");
+const button = document.querySelector("#fetch-gif-btn");
+
+// Array to store images
+let images = [];
+
+// Function to fetch GIF data from Giphy
+async function getGifs() {
+  const response = await fetch(
+    "https://api.giphy.com/v1/gifs/search?api_key=YOUR_API_KEY_HERE&q=dogs&limit=12&offset=0&rating=g&lang=en&bundle=messaging_non_clips"
+  );
+
   const data = await response.json();
-  const fact = data.facts[0];
-  
-  // Update the DOM with the dog fact
-  const output = document.getElementById("dog-fact-output"); 
-  output.textContent = fact;
+
+  // Store all original image URLs in the images array
+  images = data.data.map(function (gif) {
+    return gif.images.original.url;
+  });
+
+  // Preview the array in the browser console
+  console.log(images);
 }
 
-getDogFact()
+// Button click event
+button.addEventListener("click", async function () {
+  // Clear old GIFs so they do not duplicate every click
+  gifContainer.innerHTML = "";
 
-// getDogFact() code not shown
-const button = document.getElementById("fetch-dog-btn"); 
+  // Fetch the GIFs first
+  await getGifs();
 
-button.addEventListener("click", function () { 
-  getDogFact(); 
+  // Display them on the page
+  for (let i = 0; i < images.length; i++) {
+    gifContainer.innerHTML += `<img src="${images[i]}" class="col-3 mb-3">`;
+  }
 });
