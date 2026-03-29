@@ -1,1 +1,28 @@
-/* Add any custom CSS stylings you want here */
+/* change button color */
+
+#fetch-gif-btn {
+  background-color: #28a745;
+  color: #fff;
+  border-color: #28a745;
+}
+
+#fetch-gif-btn:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+  
+}
+
+#fetch-gif-btn {
+  background-color: #28a745;
+  color: #fff;
+  border-color: #28a745;
+  transition: all 0.2s ease;
+  border-radius: 50px;
+}
+
+/* Cahnge search bar */
+#search-input {
+  border-radius: 50px;
+  height: 34px;
+  font-size: 14px;
+} 
